@@ -163,10 +163,10 @@ form > div {
   width: 90%;
   max-width: 1200px;
   align-self: center;
-  display: grid;
-  grid-template-columns: repeat(4, 25%);
-  grid-template-rows: repeat(4, 300px);
+  display: flex;
+  flex-wrap: wrap;
   overflow-y: scroll;
+  justify-content: center;
 }
 
 .book {
@@ -176,6 +176,8 @@ form > div {
   margin-left: 20px;
   margin-bottom: 10px;
   border-radius: 15px;
+  height: 300px;
+  width: 225px;
 }
 
 .book__label {

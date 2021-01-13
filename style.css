@@ -216,6 +216,8 @@ form > div {
   text-align: center;
   width: 100px;
   margin-top: 10px;
+  border: none;
+  font-size: 16px;
 }
 
 .notRead {
@@ -225,6 +227,8 @@ form > div {
   text-align: center;
   width: 125px;
   margin-top: 10px;
+  border: none;
+  font-size: 16px;
 }
 
 .title {

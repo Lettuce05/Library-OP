@@ -1,4 +1,7 @@
 let Library = [];
+const newBookButton = document.getElementById("newBook");
+const form = document.querySelector(".form");
+const submitButton = document.querySelector(".submit");
 
 function Book(title, author, pages, haveRead){
     this.title = title;
@@ -13,3 +16,11 @@ function Book(title, author, pages, haveRead){
 function addBookToLibrary(){
 
 }
+
+newBookButton.addEventListener("click", ()=>{
+  form.classList.toggle("display");
+});
+
+submitButton.addEventListener("click", ()=>{
+  form.classList.toggle("display");
+});

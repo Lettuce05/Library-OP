@@ -93,6 +93,15 @@ h1 {
   margin-bottom: auto;
 }
 
+@media (max-width: 670px) {
+  .illustration {
+    display: none;
+  }
+  .info {
+    flex: 1;
+  }
+}
+
 /* form styles */
 .form {
   position: absolute;
@@ -120,6 +129,7 @@ form {
   margin-top: 10%;
   border-radius: 10px;
   justify-content: center;
+  transition: all 0.3s;
 }
 
 .book__input,
@@ -154,6 +164,13 @@ form > div {
 
 .submit:hover {
   background-color: #b9b9b9;
+}
+
+@media (max-width: 500px) {
+  form {
+    height: 400px;
+    width: 300px;
+  }
 }
 
 /* library styles */
@@ -213,22 +230,4 @@ form > div {
 .title {
   margin-top: 30px;
   margin-bottom: 0;
-}
-
-@media (max-width: 800px) {
-  .library {
-    grid-template-columns: repeat(3, 33%);
-  }
-}
-
-@media (max-width: 600px) {
-  .library {
-    grid-template-columns: repeat(2, 50%);
-  }
-}
-
-@media (max-width: 400px) {
-  .library {
-    grid-template-columns: repeat(1, 100%);
-  }
 }

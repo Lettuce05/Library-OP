@@ -197,7 +197,8 @@ form > div {
   width: 225px;
 }
 
-.book__label {
+.book__label,
+.trash {
   margin-left: 20px;
   margin-top: 10px;
   font-weight: bold;
@@ -232,6 +233,17 @@ form > div {
 }
 
 .title {
-  margin-top: 30px;
+  margin-top: 40px;
   margin-bottom: 0;
+}
+
+.trash {
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.trash:hover {
+  background-color: rgb(219, 219, 219);
 }

@@ -3,6 +3,7 @@ const newBookButton = document.getElementById("newBook");
 const form = document.querySelector(".form");
 const submitButton = document.querySelector(".submit");
 const readButton = document.querySelectorAll(".btn");
+localStorage.books = [];
 
 function Book(title, author, pages, haveRead){
     this.title = title;
@@ -37,3 +38,18 @@ readButton.forEach(button =>{
     }
   })
 })
+
+
+window.onload = function () {
+  alert("This is run");
+  if('books' in localStorage){
+    alert("This is run2");
+    if(localStorage.books){
+      // alert("this code will run");
+      // alert(localStorage.getItem("books"));
+      localStorage.books.forEach(book => {
+
+      });
+    }
+  }
+}

@@ -4,6 +4,7 @@ const form = document.querySelector(".form");
 const submitButton = document.querySelector(".submit");
 const readButton = document.querySelectorAll(".btn");
 const librarySection = document.querySelector(".library");
+const trashButtons = document.querySelectorAll(".trash");
 let books = [];
 
 function Book(title, author, pages, haveRead){
@@ -13,7 +14,7 @@ function Book(title, author, pages, haveRead){
     this.haveRead = haveRead;
 }
   
-function addBookToLibrary(title, author, pages, haveRead){
+function addBookToLibrary(title, author, pages, haveRead, index){
   const newBook = document.createElement("div");
   newBook.classList.add("book");
 
@@ -65,10 +66,28 @@ function addBookToLibrary(title, author, pages, haveRead){
   trashImage.src = "./trash.svg";
   trashImage.alt = "trash icon";
   trashButton.appendChild(trashImage);
+  trashButton.onclick = () =>{
+    deleteBook(index);
+  }
   newBook.appendChild(trashButton);
+
+  newBook.dataIndex = index;
 
   librarySection.appendChild(newBook);
   
+}
+
+function deleteBook(bookIndex){
+  // modify books
+  books.splice(bookIndex, 1);
+  // modify localStorage
+  localStorage.setItem('books', JSON.stringify(books));
+  // remove book from visual library
+  librarySection.childNodes.forEach(book =>{
+    if(book.dataIndex == bookIndex){
+      librarySection.removeChild(book);
+    }
+  });
 }
 
 // Displays the form
@@ -104,8 +123,8 @@ window.onload = function () {
       alert("this code will run");
       const bookStorage = JSON.parse(localStorage.getItem("books"));
       //Iterate through books
-      bookStorage.forEach(book => {
-        addBookToLibrary(book.title, book.author, book.pages, book.haveRead);
+      bookStorage.forEach((book, index) => {
+        addBookToLibrary(book.title, book.author, book.pages, book.haveRead, index);
       });
       books = JSON.parse(localStorage.getItem("books"));
     } 

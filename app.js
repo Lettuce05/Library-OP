@@ -1,6 +1,7 @@
 let library = [];
 const newBookButton = document.getElementById("newBook");
 const form = document.querySelector(".form");
+const inputs = document.querySelectorAll("input");
 const submitButton = document.querySelector(".submit");
 const readButton = document.querySelectorAll(".btn");
 const librarySection = document.querySelector(".library");
@@ -12,6 +13,29 @@ function Book(title, author, pages, haveRead){
     this.author = author;
     this.pages = pages;
     this.haveRead = haveRead;
+}
+
+function isFilled(){
+  let filled = true;
+  inputs.forEach((input, index) =>{
+    // if(input.type == "text"){
+    //   if(input.innerText == ""){
+    //     return false;
+    //   }
+    // } else if(input.type == "number"){
+    //   if(typeof(input.innerText) != "number" || parseInt(input.innerText) > 0){
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // } else if(input.type == "radio"){
+    //   if(input.checked){
+    //     filled = true;
+    //   } else if(filled && input.){
+
+    //   }
+    // }
+  });
 }
   
 function addBookToLibrary(title, author, pages, haveRead, index){
@@ -97,7 +121,10 @@ newBookButton.addEventListener("click", ()=>{
 
 // Puts the form away
 submitButton.addEventListener("click", ()=>{
-  form.classList.toggle("display");
+  if(isFilled()){
+    form.classList.toggle("display");
+  }
+  
 
 });
 
@@ -116,11 +143,8 @@ readButton.forEach(button =>{
 
 // loads in the Library
 window.onload = function () {
-  alert("This is run");
   if(localStorage.books){
-    alert("This is run2");
     if(localStorage.books.length > 0){
-      alert("this code will run");
       const bookStorage = JSON.parse(localStorage.getItem("books"));
       //Iterate through books
       bookStorage.forEach((book, index) => {
@@ -129,10 +153,7 @@ window.onload = function () {
       books = JSON.parse(localStorage.getItem("books"));
     } 
   }else { //Runs if books storage doesn't exist yet
-      console.log("This is run3")
       books.push(new Book("The Hobbit", "J. R. R. Tolkien", 300, "Have Read"));
       localStorage.setItem('books', JSON.stringify(books));
-      const bookStorage = localStorage.getItem('books');
-      console.log(bookStorage);
   }
 }

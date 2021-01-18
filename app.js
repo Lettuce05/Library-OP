@@ -16,26 +16,20 @@ function Book(title, author, pages, haveRead){
 }
 
 function isFilled(){
-  let filled = true;
-  inputs.forEach((input, index) =>{
-    // if(input.type == "text"){
-    //   if(input.innerText == ""){
-    //     return false;
-    //   }
-    // } else if(input.type == "number"){
-    //   if(typeof(input.innerText) != "number" || parseInt(input.innerText) > 0){
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // } else if(input.type == "radio"){
-    //   if(input.checked){
-    //     filled = true;
-    //   } else if(filled && input.){
-
-    //   }
-    // }
+  const regex = /[^0-9]/g;
+  let isFilled = true;
+  inputs.forEach((input) =>{
+    if(input.type == "text" && isFilled){
+      if(input.value == ""){
+        isFilled = false;
+      }
+    } else if(input.type == "number" && isFilled){
+      if(input.value == "" || regex.test(input.value) || parseInt(input.value) < 0){
+        isFilled = false;
+      }
+    } 
   });
+  return isFilled;
 }
   
 function addBookToLibrary(title, author, pages, haveRead, index){
@@ -74,11 +68,24 @@ function addBookToLibrary(title, author, pages, haveRead, index){
   newBook.appendChild(bookPages);
 
   const haveReadButton = document.createElement("button");
-  haveReadButton.classList.add("read");
+  if(haveRead == "Have Read"){
+    haveReadButton.classList.add("read");
+  } else {
+    haveReadButton.classList.add("notRead");
+  }
   haveReadButton.classList.add("btn");
   const HaveRead = document.createElement("p");
   HaveRead.innerText = haveRead;
   haveReadButton.appendChild(HaveRead);
+  haveReadButton.onclick = () => { //toggles state of read button
+    haveReadButton.classList.toggle("read");
+    haveReadButton.classList.toggle("notRead");
+    if(haveReadButton.innerText == "Have Read"){
+      haveReadButton.innerText = "Have Not Read";
+    } else if(haveReadButton.innerText == "Have Not Read"){
+      haveReadButton.innerText = "Have Read";
+    }
+  }
   newBook.appendChild(haveReadButton);
   
   const br = document.createElement("br");
@@ -122,24 +129,16 @@ newBookButton.addEventListener("click", ()=>{
 // Puts the form away
 submitButton.addEventListener("click", ()=>{
   if(isFilled()){
+    if(inputs[3].checked){
+      books.push(new Book(inputs[0].value, inputs[1].value, inputs[2].value, "Have Read"));
+    } else {
+      books.push(new Book(inputs[0].value, inputs[1].value, inputs[2].value, "Have Not Read"));
+    }
+    localStorage.setItem('books', JSON.stringify(books));
+    addBookToLibrary(books[books.length-1].title, books[books.length-1].author, books[books.length-1].pages,books[books.length-1].haveRead, books.length-1);
     form.classList.toggle("display");
   }
-  
-
 });
-
-// Toggles state of read Button
-readButton.forEach(button =>{
-  button.addEventListener("click", ()=>{
-    button.classList.toggle("read");
-    button.classList.toggle("notRead");
-    if(button.innerText == "Have Read"){
-      button.innerText = "Have Not Read";
-    } else if(button.innerText == "Have Not Read"){
-      button.innerText = "Have Read";
-    }
-  })
-})
 
 // loads in the Library
 window.onload = function () {

@@ -85,6 +85,7 @@ function addBookToLibrary(title, author, pages, haveRead, index){
     } else if(haveReadButton.innerText == "Have Not Read"){
       haveReadButton.innerText = "Have Read";
     }
+    toggleReadState(index);
   }
   newBook.appendChild(haveReadButton);
   
@@ -119,6 +120,17 @@ function deleteBook(bookIndex){
       librarySection.removeChild(book);
     }
   });
+}
+
+function toggleReadState(bookIndex){
+  //toggle state in the array of books
+  if(books[bookIndex].haveRead == "Have Read"){
+    books[bookIndex].haveRead = "Have Not Read";
+  } else {
+    books[bookIndex].haveRead = "Have Read";
+  }
+  //update localStorage
+  localStorage.setItem('books', JSON.stringify(books));
 }
 
 // Displays the form
